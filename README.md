@@ -117,5 +117,13 @@ Sometimes, FMD may use too much CPU. It's a known issue of `libao` and `alsa`. T
 
 ##update
 
+S98fmd
+
+put this file in /etc/rc?.d/
+
+runlevel to get ? (the number)
+
+make your fmd.py to be executable.   chmod a+x filename
+
 
 
