@@ -115,7 +115,7 @@ Sometimes, FMD may use too much CPU. It's a known issue of `libao` and `alsa`. T
 * Cover more error cases.
 * Improve FMD protocol.
 
-##update
+##update  守护进程
 
 S98fmd
 
@@ -123,7 +123,72 @@ put this file in /etc/rc?.d/
 
 runlevel to get ? (the number)
 
-make your fmd.py to be executable.   chmod a+x filename
+make your fmd.py to be executable.  ===> chmod a+x filename
 
+##开机启动
+
+$ sudo nano /etc/rc.local
+-------------------------
+
+sudo /etc/rc2.d/S98fmd start
+
+exit 0
+
+-------------------------
+
+
+##iwconfig TP-LINK TL-WN823N 300M
+
+---------------------
+
+root@raspberrypi:~# cat /etc/network/interfaces
+
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet dhcp
+
+auto wlan0
+iface wlan0 inet dhcp
+wireless-essid HiWiFi_FUCK
+#address 192.168.1.30
+#netmask 255.255.255.0
+#gateway 192.168.1.20
+pre-up wpa_supplicant -B w -D wext -i wlan0 -c /etc/wpa_supplicant/wpa_supplicant.conf
+post-down killall -q wpa_supplicant
+#wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+#wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+iface default inet dhcp
+
+-------------------------------------
+
+++++++
+
+$ wpa_passphrase myssid password
+network={
+   ssid="myssid"
+   #psk="password"
+   psk=2fe820b1e836cb734fb88172egfi01c5d40bb8449cc55c6e26ce300bbe8e04c7
+}
+
+++++++
+
+$ sudo cat /etc/wpa_supplicant/wpa_supplicant.conf 
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+   ssid="myssid"
+   proto=WPA RSN
+   scan_ssid=1
+   key_mgmt=WPA-PSK
+   pairwise=CCMP TKIP
+   group=CCMP TKIP
+   psk=2fe820b1e836cb734fb88172egfi01c5d40bb8449cc55c6e26ce300bbe8e04c7
+}
 
 
