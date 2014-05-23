@@ -143,6 +143,7 @@ exit 0
 
 root@raspberrypi:~# cat /etc/network/interfaces
 
+'''
 auto lo
 
 iface lo inet loopback
@@ -165,10 +166,13 @@ post-down killall -q wpa_supplicant
 #wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 iface default inet dhcp
 
+'''
+
 -------------------------------------
 
-++++++
 
+
+'''
 $ wpa_passphrase myssid password
 network={
    ssid="myssid"
@@ -176,7 +180,10 @@ network={
    psk=2fe820b1e836cb734fb88172egfi01c5d40bb8449cc55c6e26ce300bbe8e04c7
 }
 
-++++++
+'''
+
+
+'''
 
 $ sudo cat /etc/wpa_supplicant/wpa_supplicant.conf 
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
@@ -191,4 +198,5 @@ network={
    psk=2fe820b1e836cb734fb88172egfi01c5d40bb8449cc55c6e26ce300bbe8e04c7
 }
 
+'''
 
